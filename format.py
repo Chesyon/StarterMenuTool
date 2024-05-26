@@ -17,45 +17,45 @@ def gen_starter_option(species_name: str, species_id: int, gender: int, is_partn
     confirmation_string = confirmation_string.replace("[SPECIESNAME]", "[CS:K]" + species_name + "[CR]")
     indent_if_confirm = ""
     if confirm_species:
-        indent_if_confirm += "     "
-    output = '''     case menu("'''
+        indent_if_confirm += "    "
+    output = '''    case menu("'''
     if gender == 0:
         output += "♂"
     elif gender == 1:
         output += "♀"
     elif gender == 2:
         output += "-"
-    output += " [CS:K]" + species_name + '''[CR]"):\n          message_Close();\n'''
+    output += " [CS:K]" + species_name + '''[CR]"):\n        message_Close();\n'''
     if confirm_species:
-        output += "          message_Monologue('" + confirmation_string + "');\n          switch ( message_SwitchMenu(2, 1) ) {\n               case menu('Yes'):\n                    message_Close();\n"
-    output += "               " + indent_if_confirm + "ProcessSpecial(" + str(starter_setter_sp) + "," + str(
-        is_partner) + "," + str(species_id) + ");\n" + "               " + indent_if_confirm + "$"
+        output += "        message_Monologue('" + confirmation_string + "');\n        switch ( message_SwitchMenu(2, 1) ) {\n            case menu('Yes'):\n                    message_Close();\n"
+    output += "            " + indent_if_confirm + "ProcessSpecial(" + str(starter_setter_sp) + "," + str(
+        is_partner) + "," + str(species_id) + ");\n" + "            " + indent_if_confirm + "$"
     if is_partner == 0:
         output += "HERO"
     else:
         output += "PARTNER"
     output += "_TALK_KIND = " + str(talk_kind) + ";\n"
     if not choose_gender and not is_partner:
-        output += "               " + indent_if_confirm + "ProcessSpecial(" + str(set_frame_color_sp) + "," + str(
+        output += "            " + indent_if_confirm + "ProcessSpecial(" + str(set_frame_color_sp) + "," + str(
             gender) + ",0);\n"
-    output += "               " + indent_if_confirm + "jump @label_end_choice" + str(is_partner) + ";\n"
+    output += "            " + indent_if_confirm + "jump @label_end_choice" + str(is_partner) + ";\n"
     if confirm_species:
-        output += '''               case menu('No'):\n                    message_Close();\n                    jump @label_start_choice''' + str(
+        output += '''            case menu('No'):\n                message_Close();\n                jump @label_start_choice''' + str(
             is_partner)
         if choose_gender:
             output += "_" + str(gender_list)
-        output += ";\n               }\n"
+        output += ";\n            }\n"
     return output
 
 
 def gen_gender_prompt(is_partner: int, gender_prompt: str, set_frame_color_sp: int):
-    output = "message_Monologue('" + gender_prompt + "');\nswitch ( message_SwitchMenu(0, 1) ) {\n     case menu('Male'):\n"
+    output = "message_Monologue('" + gender_prompt + "');\nswitch ( message_SwitchMenu(0, 1) ) {\n    case menu('Male'):\n"
     if is_partner == 0:
-        output += "          ProcessSpecial(" + str(set_frame_color_sp) + ",0,0);\n"
-    output += "          jump @label_start_choice" + str(is_partner) + "_0;\n     case menu('Female'):\n"
+        output += "        ProcessSpecial(" + str(set_frame_color_sp) + ",0,0);\n"
+    output += "        jump @label_start_choice" + str(is_partner) + "_0;\n    case menu('Female'):\n"
     if is_partner == 0:
-        output += "          ProcessSpecial(" + str(set_frame_color_sp) + ",1,0);\n"
-    output += "          jump @label_start_choice" + str(is_partner) + "_1;\n}\n"
+        output += "        ProcessSpecial(" + str(set_frame_color_sp) + ",1,0);\n"
+    output += "        jump @label_start_choice" + str(is_partner) + "_1;\n}\n"
     return output
 
 
@@ -100,8 +100,21 @@ def gen_menu(gender_prompt: str, species_prompt: str, species_confirmation: str,
     return output
 
 
+def gen_post_menu():
+    output = "\n    switch ( ProcessSpecial(PROCESS_SPECIAL_INIT_MAIN_TEAM_AFTER_QUIZ, 0, 0) ) { }\n"
+    with open('settings.csv', 'r') as f:
+        mycsv = csv.reader(f)
+        mycsv = list(mycsv)
+        if mycsv[7][1] == "Yes":
+            output += "    switch ( message_Menu(MENU_PLAYER_NAME) ) { }\n"
+        if mycsv[8][1] == "Yes":
+            output += "    switch ( message_Menu(MENU_PARTNER_NAME) ) { }\n"
+        if mycsv[9][1] == "Yes":
+            output += "    switch ( message_Menu(MENU_TEAM_NAME) ) { }\n    $PERFORMANCE_PROGRESS_LIST[1] = 1;\n"
+    return output
+
+
 def parse_csv_settings(is_partner: int):
-    # this should output: gender_prompt, species_prompt, species_confirmation, confirm_species, choose_gender, is_partner, mons, female_mons, starter_setter_sp, set_frame_color_sp
     # row_num 0 is 1
     # col_num 0 is A
     # accessing a cell can be done as mycsv[row_num][col_num]
@@ -190,8 +203,9 @@ def gen_script():
     output += textwrap.indent(
         gen_menu(partner_settings[0], partner_settings[1], partner_settings[2], partner_settings[3],
                  partner_settings[4], partner_settings[5], partner_settings[6], partner_settings[7],
-                 partner_settings[8], partner_settings[9]), '     ')
+                 partner_settings[8], partner_settings[9]), '    ')
     output += "\n"
+    output += gen_post_menu()
     with open('script_footer.txt', 'r') as f:
         output += f.read()
     return output

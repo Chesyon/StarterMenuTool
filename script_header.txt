@@ -1,0 +1,19 @@
+def 0 {
+    back2_SetMode(4);
+    screen_FadeOut(1,0);
+    screen2_FadeOut(1,0);
+    back2_SetGround(LEVEL_S02P01A);
+    back_SetGround(LEVEL_S02P01A);
+    message_Explanation("[CN]Welcome![C]");
+    message_Explanation("[CN]This is the portal that leads to the\n[CN]world inhabited only by Pokémon.[C]");
+    message_Explanation("[CN]Beyond this gateway, many new\n[CN]adventures and fresh experiences\n[CN]await your arrival![C]");
+    message_Explanation("[CN]Before you depart for adventure,\n[CN]you must answer some questions.[C]");
+    message_Explanation("[CN]Be truthful when you answer them![C]");
+    message_Explanation("[CN]Now, are you ready?[C]");
+    message_Explanation("[CN]Then...[K]let the questions begin![C]");
+    message_Close();
+    screen_FadeOutAll(1, 0);
+    bgm_PlayFadeIn(BGM_WELCOME_TO_THE_WORLD_OF_POKEMON, 60, 255);
+    screen2_FadeIn(0, 60);
+    screen_FadeIn(0, 0);
+    screen_FadeInAll(1, 60);

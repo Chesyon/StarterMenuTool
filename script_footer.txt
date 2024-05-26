@@ -1,0 +1,11 @@
+    message_Monologue("OK! That's it! You're all ready to go!");
+    message_Monologue("You're off to the world of Pokémon!");
+    message_Monologue("Be strong! Stay smart! And be victorious!");
+    message_Close();
+    bgm_FadeOut(60);
+    screen_FadeOutAll(0, 60);
+    screen2_FadeOut(1, 60);
+    screen_FadeOut(1,0);
+    screen_FadeInAll(1,0);
+    end;
+}
