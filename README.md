@@ -1,6 +1,6 @@
 # StarterMenuTool
 
-StarterMenuTool is a tool written in Python that generates an [ExplorerScript](https://github.com/SkyTemple/ExplorerScript) menu for starter selection in Pokémon Mystery Dungeon: Explorers of Sky. It is compatible with the US and EU versions of the game. It is designed to be used alongside SkyTemple, and is a completely custom implementation of the game's starter selection. It was created by Chesyon, and credit would be appreciated if you use this! <3
+StarterMenuTool is a tool written in Python that generates an [ExplorerScript](https://github.com/SkyTemple/ExplorerScript) menu for starter selection in Pokémon Mystery Dungeon: Explorers of Sky. It is compatible with the US and EU versions of the game. It is designed to be used alongside SkyTemple, and is a completely custom implementation of the game's starter selection. It was created by Chesyon, and credit would be appreciated if you use this! Please also credit Adex, HeckaBad, and Irdkwia for the ASM code that makes StarterMenuTool work! Thanks! <3
 ## Why use StarterMenuTool?
 * A custom implementation of starter selection removes any hardcoded restrictions from EoS' vanilla Personality Test.
 * This implementation *can* be done by hand in SkyTemple, but this tool automates the repetitive menu code.
