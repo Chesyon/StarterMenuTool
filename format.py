@@ -101,7 +101,7 @@ def gen_menu(gender_prompt: str, species_prompt: str, species_confirmation: str,
 
 
 def gen_post_menu():
-    output = "\n    switch ( ProcessSpecial(PROCESS_SPECIAL_INIT_MAIN_TEAM_AFTER_QUIZ, 0, 0) ) { }\n"
+    output = "    switch ( ProcessSpecial(PROCESS_SPECIAL_INIT_MAIN_TEAM_AFTER_QUIZ, 0, 0) ) { }\n"
     with open('settings.csv', 'r') as f:
         mycsv = csv.reader(f)
         mycsv = list(mycsv)
@@ -194,17 +194,12 @@ def gen_script():
     output = ""
     with open('script_header.txt', 'r') as f:
         output += f.read()
-    output += "\n"
     hero_settings = parse_csv_settings(0)
     output += textwrap.indent(
-        gen_menu(hero_settings[0], hero_settings[1], hero_settings[2], hero_settings[3], hero_settings[4],
-                 hero_settings[5], hero_settings[6], hero_settings[7], hero_settings[8], hero_settings[9]), '     ')
+        gen_menu(*hero_settings), '    ')
     partner_settings = parse_csv_settings(1)
     output += textwrap.indent(
-        gen_menu(partner_settings[0], partner_settings[1], partner_settings[2], partner_settings[3],
-                 partner_settings[4], partner_settings[5], partner_settings[6], partner_settings[7],
-                 partner_settings[8], partner_settings[9]), '    ')
-    output += "\n"
+        gen_menu(*partner_settings), '    ')
     output += gen_post_menu()
     with open('script_footer.txt', 'r') as f:
         output += f.read()
@@ -213,3 +208,4 @@ def gen_script():
 
 with open("output.txt", "w") as file:
     file.write(gen_script())
+    print("Done!")
