@@ -192,7 +192,7 @@ def is_mon_valid(name: str, species: str, gender: str, talk_kind: str):
 
 def gen_script():
     output = ""
-    with open('script_header.txt', 'r') as f:
+    with open('script_header.txt', 'r', encoding="utf8") as f:
         output += f.read()
     hero_settings = parse_csv_settings(0)
     output += textwrap.indent(
@@ -206,6 +206,6 @@ def gen_script():
     return output
 
 
-with open("output.txt", "w") as file:
+with open("output.txt", "w", encoding="utf8") as file:
     file.write(gen_script())
     print("Done!")
