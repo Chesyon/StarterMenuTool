@@ -54,7 +54,7 @@ There are four lists of Pokémon here. Two for the hero, and two for the partner
 		* **4** if the Pokémon is male, or genderless.
 		* **5** (or anything other than 4) if the Pokémon is female.
 	* **Partner**:
-		* **1** if the Pokémon is Squirtle, Totodile, Chimchar, Meowth or Munchlax (which are all male). Why is this separate from 2? Who knows! Which one you use is up to you.
+		* **1** if the Pokémon is Squirtle, Totodile, Chimchar, Meowth or Munchlax (which are all male). The only difference between this and 2 is in the Japanese version of the game. With 1, they will refer to themselves as "oira". With 2, they will refer to themselves as "boku".
 		* **2** for all other male Pokémon not stated above.
 		* **3** (or anything other than 1 or 2) for all female Pokémon (Chikorita, Torchic, Eevee, Vulpix, Skitty)
 
