@@ -27,7 +27,7 @@ def gen_starter_option(species_name: str, species_id: int, gender: int, is_partn
         output += "-"
     output += " [CS:K]" + species_name + '''[CR]"):\n        message_Close();\n'''
     if confirm_species:
-        output += "        message_Monologue('" + confirmation_string + "');\n        switch ( message_SwitchMenu(2, 1) ) {\n            case menu('Yes'):\n                    message_Close();\n"
+        output += "        message_Monologue('" + confirmation_string + "');\n        switch ( message_SwitchMenu(1, 1) ) {\n            case menu('Yes'):\n                    message_Close();\n"
     output += "            " + indent_if_confirm + "ProcessSpecial(" + str(starter_setter_sp) + "," + str(
         is_partner) + "," + str(species_id) + ");\n" + "            " + indent_if_confirm + "$"
     if is_partner == 0:
@@ -40,7 +40,7 @@ def gen_starter_option(species_name: str, species_id: int, gender: int, is_partn
             gender) + ",0);\n"
     output += "            " + indent_if_confirm + "jump @label_end_choice" + str(is_partner) + ";\n"
     if confirm_species:
-        output += '''            case menu('No'):\n                message_Close();\n                jump @label_start_choice''' + str(
+        output += '''            case menu('No'):\n            default:\n                message_Close();\n                jump @label_start_choice''' + str(
             is_partner)
         if choose_gender:
             output += "_" + str(gender_list)
